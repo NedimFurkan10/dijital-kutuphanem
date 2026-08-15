@@ -17,15 +17,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const logoutButton = document.getElementById("logoutButton");
 
-    if (logoutButton) {
-        logoutButton.addEventListener("click", async (event) => {
+   logoutButton.addEventListener("click", async (event) => {
+    event.preventDefault();
 
-            event.preventDefault();
+    const { error } = await db.auth.signOut();
 
-            await logout();
-
-        });
+    if (error) {
+        console.error("Çıkış hatası:", error);
+        alert("Çıkış yapılırken bir hata oluştu.");
+        return;
     }
+
+    window.location.href = "../login.html";
+});
 
 
     // =====================================================
