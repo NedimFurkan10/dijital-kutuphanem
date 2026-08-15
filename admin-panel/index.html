@@ -1,1 +1,707 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Yönetim Paneli</title><link rel="stylesheet" href="../css/books.css"></head><body><header class="navbar"><div class="logo">Dijital Kütüphanem · Yönetim</div><nav><a href="../library.html">Siteye dön</a><a href="#" id="logoutButton">Çıkış</a></nav></header><main class="books-page"><section class="books-header"><h1>Yönetim Paneli</h1><p id="summary">Yükleniyor…</p></section><h2>Kullanıcılar</h2><section id="users" class="book-grid"></section><h2 style="margin:45px 0 20px">Kitap Kayıtları</h2><section id="books" class="book-grid"></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../js/supabase-client.js"></script><script src="admin.js"></script></body></html>
+<!doctype html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dijital Kütüphanem · Yönetim</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f5f7f8;
+            --sidebar: #123f36;
+            --sidebar-hover: #1b5146;
+            --sidebar-text: #dcebe7;
+            --sidebar-muted: #9fbdb5;
+            --primary: #1f5a4e;
+            --primary-light: #e6f1ee;
+            --text: #18332d;
+            --muted: #71827e;
+            --border: #e2e9e7;
+            --white: #ffffff;
+            --danger: #b94b4b;
+            --shadow: 0 8px 30px rgba(20, 55, 47, 0.06);
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            min-width: 250px;
+            background: var(--sidebar);
+            color: white;
+            padding: 24px 16px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 4px 10px 28px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .logo-text strong {
+            display: block;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .logo-text span {
+            display: block;
+            color: var(--sidebar-muted);
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .sidebar-title {
+            color: #83aaa1;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 28px 12px 10px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .sidebar-nav a {
+            text-decoration: none;
+            color: var(--sidebar-text);
+            padding: 12px 13px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: var(--sidebar-hover);
+            color: white;
+        }
+
+        .nav-icon {
+            width: 25px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.10);
+            padding-top: 16px;
+        }
+
+        .sidebar-bottom a {
+            text-decoration: none;
+            color: var(--sidebar-text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .sidebar-bottom a:hover {
+            background: var(--sidebar-hover);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 76px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 38px;
+        }
+
+        .topbar-left h1 {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .topbar-left p {
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .admin-user-text strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .admin-user-text span {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            padding: 34px 38px 50px;
+            max-width: 1500px;
+        }
+
+        .welcome {
+            margin-bottom: 26px;
+        }
+
+        .welcome h2 {
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        /* =========================
+           STAT CARDS
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 34px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 21px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 11px;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 27px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .section-header span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* =========================
+           EXISTING JS CARDS
+        ========================= */
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 18px;
+        }
+
+        .book-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(20, 55, 47, 0.10);
+        }
+
+        .book-title {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .book-author {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 17px;
+            word-break: break-word;
+        }
+
+        .book-card input {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #d8e1de;
+            border-radius: 9px;
+            padding: 0 12px;
+            font-family: inherit;
+            font-size: 13px;
+            color: var(--text);
+            outline: none;
+            margin-bottom: 9px;
+        }
+
+        .book-card input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(31, 90, 78, 0.10);
+        }
+
+        .add-book-button {
+            width: 100%;
+            min-height: 41px;
+            border: none;
+            border-radius: 9px;
+            background: var(--primary);
+            color: white;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .add-book-button:hover {
+            background: #17483e;
+            transform: translateY(-1px);
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            .sidebar {
+                width: 100%;
+                min-width: 0;
+                height: auto;
+                bottom: auto;
+                position: relative;
+                padding: 15px;
+            }
+
+            .admin-layout {
+                display: block;
+            }
+
+            .sidebar-logo {
+                border-bottom: none;
+                padding-bottom: 12px;
+            }
+
+            .sidebar-title {
+                display: none;
+            }
+
+            .sidebar-nav {
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .sidebar-nav a {
+                white-space: nowrap;
+            }
+
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .content {
+                padding: 25px 20px 40px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .topbar {
+                height: auto;
+                padding: 17px 20px;
+            }
+
+            .topbar-left h1 {
+                font-size: 17px;
+            }
+
+            .admin-user-text {
+                display: none;
+            }
+
+            .welcome h2 {
+                font-size: 22px;
+            }
+
+            .book-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                <div class="logo-icon">📚</div>
+
+                <div class="logo-text">
+                    <strong>Dijital Kütüphanem</strong>
+                    <span>Yönetim Paneli</span>
+                </div>
+            </div>
+
+            <div class="sidebar-title">
+                Yönetim
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a href="#dashboard" class="active">
+                    <span class="nav-icon">⌂</span>
+                    Dashboard
+                </a>
+
+                <a href="#users">
+                    <span class="nav-icon">👥</span>
+                    Kullanıcılar
+                </a>
+
+                <a href="#books">
+                    <span class="nav-icon">📚</span>
+                    Kitaplar
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <a href="../library.html">
+                    <span>↩</span>
+                    Siteye dön
+                </a>
+
+                <a href="#" id="logoutButton">
+                    <span>↪</span>
+                    Çıkış yap
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+        <div class="main-content">
+
+            <!-- TOPBAR -->
+            <header class="topbar">
+
+                <div class="topbar-left">
+                    <h1>Yönetim Paneli</h1>
+                    <p>Dijital Kütüphanem sistem yönetimi</p>
+                </div>
+
+                <div class="admin-user">
+
+                    <div class="admin-avatar">
+                        A
+                    </div>
+
+                    <div class="admin-user-text">
+                        <strong>Yönetici</strong>
+                        <span>Administrator</span>
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- CONTENT -->
+            <main class="content">
+
+                <section id="dashboard" class="welcome">
+
+                    <h2>Hoş geldin, Admin 👋</h2>
+
+                    <p>
+                        Kütüphanedeki kullanıcıları ve kitap kayıtlarını buradan yönetebilirsin.
+                    </p>
+
+                </section>
+
+
+                <!-- STATS -->
+
+                <section class="stats">
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+                            <span class="stat-label">Toplam Kullanıcı</span>
+                            <div class="stat-icon">👥</div>
+                        </div>
+
+                        <div class="stat-value" id="userCount">
+                            —
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+                            <span class="stat-label">Toplam Kitap</span>
+                            <div class="stat-icon">📚</div>
+                        </div>
+
+                        <div class="stat-value" id="bookCount">
+                            —
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+                            <span class="stat-label">Sistem Durumu</span>
+                            <div class="stat-icon">✓</div>
+                        </div>
+
+                        <div class="stat-value" style="font-size:20px;">
+                            Aktif
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- USERS -->
+
+                <section id="users" class="section">
+
+                    <div class="section-header">
+
+                        <h2>👥 Kullanıcılar</h2>
+
+                        <span>Kullanıcı yönetimi</span>
+
+                    </div>
+
+                    <div id="users" class="book-grid">
+                    </div>
+
+                </section>
+
+
+                <!-- BOOKS -->
+
+                <section id="books" class="section">
+
+                    <div class="section-header">
+
+                        <h2>📚 Kitap Kayıtları</h2>
+
+                        <span>Kitap yönetimi</span>
+
+                    </div>
+
+                    <div id="books" class="book-grid">
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../js/supabase-client.js"></script>
+
+    <script src="admin.js"></script>
+
+
+    <!-- DASHBOARD SAYILARINI GÜNCELLE -->
+    <script>
+
+        const originalText = document.getElementById("summary");
+
+        const observer = new MutationObserver(() => {
+
+            const text = originalText.textContent;
+
+            const match = text.match(/(\d+)\s*kullanıcı\s*·\s*(\d+)\s*kitap/);
+
+            if (match) {
+
+                document.getElementById("userCount").textContent = match[1];
+
+                document.getElementById("bookCount").textContent = match[2];
+
+            }
+
+        });
+
+        observer.observe(originalText, {
+            childList: true,
+            characterData: true,
+            subtree: true
+        });
+
+    </script>
+
+</body>
+
+</html>
