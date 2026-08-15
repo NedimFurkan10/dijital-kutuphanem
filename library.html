@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kütüphanem - Dijital Kütüphanem</title>
+
+    <link rel="stylesheet" href="css/books.css">
+
+    <link rel="stylesheet" href="css/library.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            Dijital Kütüphanem
+
+        </div>
+
+
+        <nav>
+
+            <a href="books.html">
+
+                <i class="fa-solid fa-book"></i>
+
+                Kitaplar
+
+            </a>
+
+
+            <a href="library.html" class="active">
+
+                <i class="fa-solid fa-bookmark"></i>
+
+                Kütüphanem
+
+            </a>
+
+            <a href="statistics.html">
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                İstatistikler
+
+            </a>
+
+
+            <a href="#" id="logoutButton">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Çıkış
+
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         ANA İÇERİK
+    ====================================================== -->
+
+    <main class="books-page">
+
+
+        <section class="books-header">
+
+            <h1>Kütüphanem</h1>
+
+            <p>
+                Kütüphanene eklediğin kitapları burada görebilirsin.
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             KİTAPLAR
+        ================================================== -->
+
+        <section id="libraryResults" class="book-grid">
+        </section>
+
+
+
+        <!-- =================================================
+             KÜTÜPHANE BOŞ
+        ================================================== -->
+
+        <section id="emptyLibrary" class="no-results hidden">
+
+            <i class="fa-solid fa-book-open empty-icon"></i>
+
+            <h2>
+                Kütüphanen boş
+            </h2>
+
+            <p>
+                Henüz kütüphanene kitap eklemedin.
+            </p>
+
+            <a href="books.html" class="go-books-button">
+
+                Kitaplara Git
+
+            </a>
+
+        </section>
+
+
+    </main>
+    <div id="confirmModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <p id="confirmModalText"></p>
+            <div class="modal-actions">
+                <button id="confirmModalCancel" class="modal-btn modal-btn-secondary" type="button">Vazgeç</button>
+                <button id="confirmModalOk" class="modal-btn modal-btn-danger" type="button">Kaldır</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/library.js"></script>
+
+</body>
+
+</html>

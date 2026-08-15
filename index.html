@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dijital Kütüphanem</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <main class="auth-page">
+
+        <!-- SOL TARAF -->
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <h1>
+                    Kendi Dijital<br>
+                    Kütüphaneni Oluştur
+                </h1>
+
+                <p class="hero-description">
+                    Okuduğun, okuyacağın ve sevdiğin kitapları tek yerde yönet.
+                </p>
+
+                <div class="books-wrapper">
+
+                    <div class="book book-green-left"></div>
+                    <div class="book book-orange"></div>
+
+                    <div class="book book-white">
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <div class="book book-green"></div>
+                    <div class="book book-orange-right"></div>
+
+                    <div class="book-shadow"></div>
+
+                </div>
+
+                <div class="stats-container">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+
+                        <div class="stat-number">
+                            250.000+
+                        </div>
+
+                        <div class="stat-title">
+                            Kitap
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+
+                        <div class="stat-number">
+                            80.000+
+                        </div>
+
+                        <div class="stat-title">
+                            İnceleme
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+
+                        <div class="stat-number">
+                            15.000+
+                        </div>
+
+                        <div class="stat-title">
+                            Kullanıcı
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SAĞ TARAF -->
+        <section class="login-section">
+
+            <div class="login-content">
+
+                <div class="logo">
+
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+
+                    <span>Dijital Kütüphanem</span>
+
+                </div>
+
+
+                <h2>
+                    Hoş Geldin <span class="wave">👋</span>
+                </h2>
+
+                <p class="login-description">
+                    Kütüphanene devam etmek için giriş yap.
+                </p>
+
+
+                <!-- KULLANICI ADI -->
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input type="email" id="username" placeholder="E-posta" autocomplete="email" required>
+
+                </div>
+
+
+                <!-- ŞİFRE -->
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input type="password" id="password" placeholder="Şifre" autocomplete="current-password" required>
+
+                </div>
+
+
+                <div class="login-options">
+
+                    <label class="remember">
+
+                        <input type="checkbox" id="rememberMe">
+
+                        <span>Beni Hatırla</span>
+
+                    </label>
+
+
+                </div>
+                <p id="registerSuccess" class="form-success" role="status" hidden>Kaydın alındı! Giriş yapabilmek için
+                    e-postana gelen doğrulama bağlantısına tıkla.</p>
+                <p id="loginError" class="form-error" role="alert" hidden></p>
+
+
+                <button type="button" class="login-button" id="loginButton">
+
+                    Giriş Yap
+
+                </button>
+
+
+                <div class="register-text">
+
+                    <span>
+                        Hesabın yok mu?
+                    </span>
+
+                    <a href="#" id="registerLink">
+                        Kayıt Ol
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

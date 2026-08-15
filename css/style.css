@@ -1,0 +1,721 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f8f9fa;
+    color: #243248;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   ANA SAYFA
+===================================================== */
+
+.auth-page {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+}
+
+
+/* =====================================================
+   SOL TARAF
+===================================================== */
+
+.hero-section {
+    width: 55%;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 88% 68%,
+            rgba(214, 170, 110, 0.12),
+            transparent 18%
+        ),
+        radial-gradient(
+            circle at 80% 15%,
+            rgba(255, 255, 255, 0.05),
+            transparent 30%
+        ),
+        #204b41;
+
+    color: #ffffff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-content {
+    width: 86%;
+    max-width: none;
+}
+
+
+/* =====================================================
+   SOL BAŞLIK
+===================================================== */
+
+.hero-content h1 {
+    font-size: clamp(40px, 3.2vw, 54px);
+    line-height: 1.14;
+
+    letter-spacing: -1.5px;
+
+    font-weight: 700;
+
+    margin-bottom: 24px;
+
+    transform: translate(-2px, 38px);
+}
+
+.hero-description {
+    font-size: 18px;
+    line-height: 1.5;
+
+    color: #d3dfdb;
+
+    max-width: 580px;
+
+    transform: translate(-2px, 38px);
+}
+
+
+/* =====================================================
+   KİTAP İLLÜSTRASYONU
+===================================================== */
+
+.books-wrapper {
+    width: 300px;
+    height: 200px;
+
+    margin-top: 78px;
+    margin-left: 75px;
+    margin-bottom: 28px;
+
+    transform: scale(0.92);
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.book {
+    position: relative;
+
+    border-radius: 4px 4px 2px 2px;
+
+    box-shadow:
+        0 12px 20px rgba(0, 0, 0, 0.12);
+
+    z-index: 1;
+}
+
+.book-green-left {
+    width: 38px;
+    height: 126px;
+
+    background: #315f54;
+
+    transform: rotate(-7deg);
+
+    margin-right: -3px;
+}
+
+.book-orange {
+    width: 39px;
+    height: 151px;
+
+    background: #dca76d;
+
+    transform: rotate(-2deg);
+
+    margin-right: 2px;
+}
+
+.book-white {
+    width: 39px;
+    height: 158px;
+
+    background: #f1f4f2;
+
+    margin-right: 2px;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.book-white span {
+    display: block;
+
+    width: 21px;
+    height: 4px;
+
+    background: #9ba9a6;
+
+    border-radius: 4px;
+
+    margin-left: 9px;
+}
+
+.book-white span:first-child {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.book-green {
+    width: 39px;
+    height: 147px;
+
+    background: #386b5d;
+
+    transform: rotate(4deg);
+
+    margin-left: 1px;
+}
+
+.book-orange-right {
+    width: 38px;
+    height: 132px;
+
+    background: #d7a36b;
+
+    transform: rotate(8deg);
+
+    margin-left: 2px;
+}
+
+.book-shadow {
+    position: absolute;
+
+    bottom: -2px;
+    left: 50%;
+
+    width: 205px;
+    height: 22px;
+
+    transform: translateX(-50%);
+
+    background: rgba(0, 0, 0, 0.13);
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    z-index: 0;
+}
+
+
+/* =====================================================
+   İSTATİSTİK KARTLARI
+===================================================== */
+
+.stats-container {
+    display: flex;
+
+    gap: 14px;
+
+    margin-top: 4px;
+    margin-left: 2px;
+
+    transform: translateY(-25px);
+}
+
+.stat-card {
+    width: 152px;
+    height: 112px;
+
+    border-radius: 15px;
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    background: rgba(255, 255, 255, 0.075);
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    backdrop-filter: blur(4px);
+
+    transition: 0.2s ease;
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.11);
+}
+
+.stat-icon {
+    font-size: 17px;
+
+    color: #dda66a;
+
+    margin-bottom: 7px;
+}
+
+.stat-number {
+    font-size: 19px;
+
+    font-weight: 700;
+
+    margin-bottom: 4px;
+}
+
+.stat-title {
+    font-size: 13px;
+
+    color: #cbd8d4;
+}
+
+
+/* =====================================================
+   SAĞ TARAF
+===================================================== */
+
+.login-section {
+    width: 45%;
+    min-height: 100vh;
+
+    background: #f8f9fa;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-content {
+    width: 400px;
+    max-width: calc(100% - 60px);
+
+    transform: translateY(15px);
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #233e38;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    margin-bottom: 53px;
+}
+
+.logo-icon {
+    width: 20px;
+    height: 20px;
+
+    color: #dca66a;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 19px;
+}
+
+
+/* =====================================================
+   BAŞLIK
+===================================================== */
+
+.login-content h2 {
+    color: #243248;
+
+    font-size: 31px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+
+    margin-bottom: 9px;
+}
+
+.wave {
+    font-size: 25px;
+}
+
+.login-description {
+    color: #718096;
+
+    font-size: 15.5px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   INPUTLAR
+===================================================== */
+
+.input-box {
+    width: 100%;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e1e5e9;
+
+    border-radius: 12px;
+
+    padding: 0 16px;
+
+    margin-bottom: 18px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.input-box:focus-within {
+    border-color: #78958e;
+
+    box-shadow:
+        0 0 0 3px rgba(32, 75, 65, 0.07);
+}
+
+.input-box > i {
+    width: 20px;
+
+    color: #91a3b9;
+
+    font-size: 15px;
+
+    margin-right: 12px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    font-size: 15px;
+
+    color: #27364b;
+}
+
+.input-box input::placeholder {
+    color: #8c929a;
+}
+
+.form-error {
+    margin: -6px 0 16px;
+    color: #b42318;
+    font-size: 14px;
+}
+.form-success {
+    margin: -6px 0 16px;
+    padding: 10px 12px;
+    color: #0f5132;
+    background: #d1f5df;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* =====================================================
+   HATIRLA / ŞİFREMİ UNUTTUM
+===================================================== */
+
+.login-options {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 1px;
+    margin-bottom: 26px;
+
+    font-size: 14px;
+}
+
+.remember {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #5f6d80;
+
+    cursor: pointer;
+}
+
+.remember input {
+    width: 16px;
+    height: 16px;
+
+    accent-color: #204b41;
+
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: #486d64;
+
+    text-decoration: none;
+
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   GİRİŞ BUTONU
+===================================================== */
+
+.login-button {
+    width: 100%;
+    height: 50px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #1d4038;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.1s ease;
+}
+
+.login-button:hover {
+    background: #17352f;
+}
+
+.login-button:active {
+    transform: scale(0.99);
+}
+
+
+/* =====================================================
+   VEYA
+===================================================== */
+
+.or-divider {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 31px 0;
+}
+
+.or-divider span {
+    flex: 1;
+
+    height: 1px;
+
+    background: #e0e4e8;
+}
+
+.or-divider p {
+    color: #94a0af;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   GOOGLE
+===================================================== */
+
+.google-button {
+    width: 100%;
+    height: 48px;
+
+    border: 1px solid #e0e4e8;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    color: #243248;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.google-button:hover {
+    background: #fafafa;
+
+    border-color: #d2d8de;
+}
+
+.google-icon {
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #4285f4;
+}
+
+
+/* =====================================================
+   KAYIT
+===================================================== */
+
+.register-text {
+    text-align: center;
+
+    margin-top: 30px;
+
+    font-size: 14px;
+
+    color: #748197;
+}
+
+.register-text a {
+    color: #284d44;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    margin-left: 4px;
+}
+
+.register-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .hero-section {
+        width: 50%;
+    }
+
+    .login-section {
+        width: 50%;
+    }
+
+    .hero-content {
+        width: 82%;
+    }
+
+    .hero-content h1 {
+        font-size: 40px;
+    }
+
+    .stat-card {
+        width: 135px;
+    }
+
+    .login-content {
+        width: 360px;
+    }
+}
+
+
+@media (max-width: 760px) {
+
+    .hero-section {
+        display: none;
+    }
+
+    .login-section {
+        width: 100%;
+    }
+
+    .login-content {
+        width: 400px;
+
+        max-width: calc(100% - 40px);
+    }
+}
+
+
+@media (max-height: 700px) {
+
+    .logo {
+        margin-bottom: 30px;
+    }
+
+    .login-description {
+        margin-bottom: 20px;
+    }
+
+    .input-box {
+        margin-bottom: 13px;
+    }
+
+    .login-options {
+        margin-bottom: 18px;
+    }
+
+    .or-divider {
+        margin: 20px 0;
+    }
+
+    .register-text {
+        margin-top: 20px;
+    }
+}

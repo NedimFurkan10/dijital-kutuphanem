@@ -1,0 +1,586 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6f8f7;
+    color: #243248;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+    height: 72px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e8ecea;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    color: #23483f;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.logo i {
+    color: #dba66b;
+}
+
+.navbar nav {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.navbar nav a {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 14px;
+
+    border-radius: 9px;
+
+    color: #687587;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.navbar nav a:hover,
+.navbar nav a.active {
+    background: #edf3f1;
+
+    color: #23483f;
+}
+
+
+/* =====================================================
+   ANA SAYFA
+===================================================== */
+
+.books-page {
+    width: 92%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 45px 0 80px;
+}
+
+
+/* =====================================================
+   BAŞLIK
+===================================================== */
+
+.books-header {
+    text-align: center;
+
+    margin-bottom: 45px;
+}
+
+.books-header h1 {
+    font-size: 38px;
+
+    margin-bottom: 10px;
+
+    color: #243b3a;
+}
+
+.books-header p {
+    color: #75818e;
+
+    font-size: 16px;
+
+    margin-bottom: 28px;
+}
+
+
+/* =====================================================
+   ARAMA
+===================================================== */
+
+.search-box {
+    width: 680px;
+
+    max-width: 100%;
+
+    height: 56px;
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe6e3;
+
+    border-radius: 14px;
+
+    padding-left: 18px;
+
+    box-shadow:
+        0 5px 20px rgba(30, 60, 50, 0.05);
+}
+
+.search-box > i {
+    color: #91a09d;
+
+    margin-right: 12px;
+}
+
+.search-box input {
+    flex: 1;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    font-size: 15px;
+
+    color: #293746;
+}
+
+.search-box input::placeholder {
+    color: #9aa3ab;
+}
+
+.search-box button {
+    height: 44px;
+
+    margin-right: 6px;
+
+    padding: 0 23px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #204b41;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.search-box button:hover {
+    background: #173b33;
+}
+
+
+/* =====================================================
+   KİTAP GRID
+===================================================== */
+
+.book-grid {
+    width: 100%;
+
+    display: grid;
+
+    /*
+       Büyük ekranda 5 kitap yan yana
+    */
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 24px;
+
+    align-items: stretch;
+}
+
+
+/* =====================================================
+   KİTAP KARTI
+===================================================== */
+
+.book-card {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    height: 100%;
+
+    min-width: 0;
+
+    background: #ffffff;
+
+    border: 1px solid #e5ebe8;
+
+    border-radius: 15px;
+
+    padding: 16px;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+
+    box-shadow:
+        0 5px 18px rgba(30, 60, 50, 0.04);
+}
+
+.book-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 10px 25px rgba(30, 60, 50, 0.09);
+}
+
+
+/* =====================================================
+   KAPAK
+===================================================== */
+
+.book-cover {
+    width: 100%;
+
+    height: 280px;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+
+    background: #edf1ef;
+
+    display: block;
+
+    margin-bottom: 15px;
+}
+
+
+/* =====================================================
+   KİTAP BİLGİLERİ
+===================================================== */
+
+.book-title {
+    font-size: 17px;
+
+    font-weight: 700;
+
+    color: #253c3a;
+
+    margin-bottom: 7px;
+
+    line-height: 1.3;
+
+    /*
+       Uzun kitap isimleri kartı bozmasın
+    */
+    display: -webkit-box;
+
+    -webkit-line-clamp: 3;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+.book-author {
+    color: #77848d;
+
+    font-size: 14px;
+
+    margin-bottom: 6px;
+
+    line-height: 1.4;
+
+    /*
+       Uzun yazar isimleri de kartı bozmasın
+    */
+    display: -webkit-box;
+
+    -webkit-line-clamp: 2;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+.book-pages {
+    color: #929ba2;
+
+    font-size: 13px;
+
+    margin-bottom: 15px;
+}
+
+
+/* =====================================================
+   EKLE BUTONU
+===================================================== */
+
+.add-book-button {
+    width: 100%;
+
+    height: 42px;
+
+    margin-top: auto;
+
+    flex-shrink: 0;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #204b41;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.add-book-button:hover {
+    background: #173b33;
+}
+
+.add-book-button.added {
+    background: #dca66b;
+
+    cursor: default;
+}
+.remove-book-button {
+    width: 100%;
+    height: 38px;
+    margin-top: 8px;
+    flex-shrink: 0;
+    border: 1px solid #b42318;
+    border-radius: 9px;
+    background: transparent;
+    color: #b42318;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.remove-book-button:hover {
+    background: #b42318;
+    color: white;
+}
+
+.remove-book-button:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+
+/* =====================================================
+   YÜKLENİYOR
+===================================================== */
+
+.loading {
+    text-align: center;
+
+    padding: 40px;
+
+    color: #718078;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* =====================================================
+   SONUÇ YOK
+===================================================== */
+
+.no-results {
+    text-align: center;
+
+    padding: 50px;
+
+    color: #7c878d;
+
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   1200px ALTI
+===================================================== */
+
+@media (max-width: 1200px) {
+
+    .book-grid {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =====================================================
+   950px ALTI
+===================================================== */
+
+@media (max-width: 950px) {
+
+    .book-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =====================================================
+   MOBİL
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .navbar nav a {
+        font-size: 0;
+    }
+
+    .navbar nav a i {
+        font-size: 16px;
+    }
+
+    .books-page {
+        width: 92%;
+
+        padding-top: 35px;
+    }
+
+    .books-header h1 {
+        font-size: 30px;
+    }
+
+    .book-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 14px;
+    }
+
+    .book-cover {
+        height: 220px;
+    }
+
+    .book-card {
+        padding: 12px;
+    }
+
+    .book-title {
+        font-size: 15px;
+    }
+
+    .book-author {
+        font-size: 13px;
+    }
+
+    .add-book-button {
+        font-size: 13px;
+    }
+}
+
+
+/* =====================================================
+   ÇOK KÜÇÜK TELEFON
+===================================================== */
+
+@media (max-width: 450px) {
+
+    .book-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .book-cover {
+        height: 280px;
+    }
+
+}
+/* =====================================================
+   KÜTÜPHANE DURUMU
+===================================================== */
+
+.book-status {
+    margin-top: 10px;
+}
+
+.book-status label {
+    display: block;
+
+    font-size: 13px;
+
+    color: #77848d;
+
+    margin-bottom: 6px;
+}
+
+.status-select {
+    width: 100%;
+
+    height: 40px;
+
+    border: 1px solid #dfe6e3;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #243b3a;
+
+    padding: 0 10px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+.status-select:focus {
+    border-color: #204b41;
+}
+
+.page-count-editor { margin: 0 0 15px; }
+.page-count-editor label { display: block; margin-bottom: 6px; color: #77848d; font-size: 13px; font-weight: 600; }
+.page-count-input { width: 100%; height: 38px; border: 1px solid #dfe6e3; border-radius: 8px; padding: 0 10px; color: #243b3a; font: inherit; }

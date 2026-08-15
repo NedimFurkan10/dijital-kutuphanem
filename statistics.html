@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>İstatistikler - Dijital Kütüphanem</title>
+
+    <link rel="stylesheet" href="css/books.css">
+    <link rel="stylesheet" href="css/statistics.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        <i class="fa-solid fa-book-open"></i>
+        Dijital Kütüphanem
+    </div>
+
+    <nav>
+
+        <a href="books.html">
+            <i class="fa-solid fa-book"></i>
+            Kitaplar
+        </a>
+
+        <a href="library.html">
+            <i class="fa-solid fa-bookmark"></i>
+            Kütüphanem
+        </a>
+
+        <a href="statistics.html" class="active">
+            <i class="fa-solid fa-chart-column"></i>
+            İstatistikler
+        </a>
+
+        <a href="#" id="logoutButton">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Çıkış
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="statistics-page">
+
+    <section class="statistics-header">
+
+        <h1>İstatistikler</h1>
+
+        <p>
+            Okuma alışkanlıklarını keşfet.
+        </p>
+
+    </section>
+
+
+    <section class="statistics-grid">
+
+        <div class="stat-card">
+
+            <i class="fa-solid fa-book"></i>
+
+            <div>
+                <span>Toplam Kitap</span>
+                <strong id="totalBooks">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <div>
+                <span>Okunan Kitap</span>
+                <strong id="readBooks">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            <div>
+                <span>Okunan Sayfa</span>
+                <strong id="readPages">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <i class="fa-solid fa-calendar-days"></i>
+
+            <div>
+                <span>Bu Ay Okunan Sayfa</span>
+                <strong id="monthlyPages">0</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="analysis-grid">
+
+        <div class="analysis-card">
+
+            <h2>
+                <i class="fa-solid fa-user-pen"></i>
+                En Çok Okuduğun Yazar
+            </h2>
+
+            <div id="topAuthor">
+                Henüz veri yok.
+            </div>
+
+        </div>
+
+
+        <div class="analysis-card">
+            <h2>
+                <i class="fa-solid fa-bullseye"></i>
+                Aylık Okuma Hedefin
+            </h2>
+            <label class="goal-label" for="monthlyGoal">Bu ay kaç sayfa okumak istiyorsun?</label>
+            <div class="goal-controls">
+                <input id="monthlyGoal" type="number" min="0" step="1" inputmode="numeric">
+                <button id="saveGoalButton" type="button">Kaydet</button>
+            </div>
+            <p id="goalProgress" class="goal-progress"></p>
+        </div>
+
+    </section>
+
+
+    <section class="status-card">
+
+        <h2>Kitap Durumların</h2>
+
+        <div class="status-list">
+
+            <div>
+                <span>Okundu</span>
+                <strong id="readCount">0</strong>
+            </div>
+
+            <div>
+                <span>Okunuyor</span>
+                <strong id="readingCount">0</strong>
+            </div>
+
+            <div>
+                <span>Okunacak</span>
+                <strong id="toReadCount">0</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/statistics.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kitaplar | Dijital Kütüphanem</title>
+
+    <link rel="stylesheet" href="css/books.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Dijital Kütüphanem</span>
+        </div>
+
+        <nav>
+            <a href="books.html" class="active">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Kitaplar
+            </a>
+
+            <a href="library.html">
+                <i class="fa-solid fa-bookmark"></i>
+                Kütüphanem
+            </a>
+
+            <a href="statistics.html">
+                <i class="fa-solid fa-chart-column"></i>
+                İstatistikler
+            </a>
+
+            <a href="#" id="logoutButton">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Çıkış
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ANA İÇERİK -->
+
+    <main class="books-page">
+
+        <section class="books-header">
+
+            <h1>
+                Kitap Keşfet 📚
+            </h1>
+
+            <p>
+                Aradığın kitabı bul ve kütüphanene ekle.
+            </p>
+
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="bookSearchInput"
+                    placeholder="Kitap adı veya yazar ara..."
+                >
+
+                <button id="searchButton">
+                    Ara
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- SONUÇLAR -->
+
+        <section>
+
+            <div
+                id="loading"
+                class="loading hidden"
+            >
+                Kitaplar aranıyor...
+            </div>
+
+
+            <div
+                id="bookResults"
+                class="book-grid">
+            </div>
+
+
+            <div
+                id="noResults"
+                class="no-results hidden"
+            >
+                Kitap bulunamadı.
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/books.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,184 @@
+/* =====================================================
+   KÜTÜPHANE DURUMU
+===================================================== */
+
+.book-status {
+    margin-top: auto;
+
+    padding-top: 10px;
+}
+
+
+.book-status label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #77848d;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.status-select {
+    width: 100%;
+
+    height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid #dfe6e3;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #243b3a;
+
+    font-size: 14px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.status-select:hover {
+    border-color: #b9c9c4;
+}
+
+
+.status-select:focus {
+    border-color: #204b41;
+
+    box-shadow:
+        0 0 0 3px rgba(32, 75, 65, 0.08);
+}
+
+
+/* =====================================================
+   KÜTÜPHANE BOŞ
+===================================================== */
+
+.empty-icon {
+    display: block;
+
+    font-size: 45px;
+
+    margin-bottom: 20px;
+
+    color: #dba66b;
+}
+
+
+.no-results h2 {
+    margin-bottom: 10px;
+
+    color: #243b3a;
+}
+
+
+.no-results p {
+    margin-bottom: 20px;
+}
+
+
+.go-books-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    height: 42px;
+
+    padding: 0 20px;
+
+    border-radius: 9px;
+
+    background: #204b41;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+.go-books-button:hover {
+    background: #173b33;
+}
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 30, 28, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 360px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-box p {
+    margin: 0 0 20px;
+    color: #243b3a;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.modal-btn {
+    height: 40px;
+    padding: 0 18px;
+    border-radius: 9px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.modal-btn-secondary {
+    background: #eef2f0;
+    color: #243b3a;
+}
+
+.modal-btn-secondary:hover {
+    background: #dfe6e3;
+}
+
+.modal-btn-danger {
+    background: #b42318;
+    color: #ffffff;
+}
+
+.modal-btn-danger:hover {
+    background: #8f1c13;
+}
