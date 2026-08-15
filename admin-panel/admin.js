@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    window.location.href = "../login.html";
+    window.location.href = "https://nedimfurkan10.github.io/dijital-kutuphanem/";
 });
 
 
