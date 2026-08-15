@@ -7,10 +7,6 @@
 
     <title>Dijital Kütüphanem · Yönetim</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
     <style>
         * {
             box-sizing: border-box;
@@ -19,49 +15,71 @@
         }
 
         :root {
-            --bg: #f5f7f8;
+            --bg: #f5f7f6;
             --sidebar: #123f36;
             --sidebar-hover: #1b5146;
             --sidebar-text: #dcebe7;
             --sidebar-muted: #9fbdb5;
             --primary: #1f5a4e;
-            --primary-light: #e6f1ee;
+            --primary-hover: #17483e;
+            --primary-light: #e7f1ee;
             --text: #18332d;
             --muted: #71827e;
             --border: #e2e9e7;
             --white: #ffffff;
             --danger: #b94b4b;
-            --shadow: 0 8px 30px rgba(20, 55, 47, 0.06);
+            --shadow: 0 8px 30px rgba(20, 55, 47, 0.07);
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: "Inter", sans-serif;
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
         }
 
-        /* =========================
-           SIDEBAR
-        ========================= */
+        /* =========================================
+           GENEL YAPI
+        ========================================= */
 
         .admin-layout {
             display: flex;
             min-height: 100vh;
         }
 
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
         .sidebar {
             width: 250px;
             min-width: 250px;
+
             background: var(--sidebar);
             color: white;
-            padding: 24px 16px;
+
             position: fixed;
-            left: 0;
             top: 0;
+            left: 0;
             bottom: 0;
+
+            padding: 24px 16px;
+
             display: flex;
             flex-direction: column;
+
             z-index: 100;
         }
 
@@ -69,41 +87,59 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 4px 10px 28px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+
+            padding: 4px 10px 26px;
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.10);
         }
 
         .logo-icon {
-            width: 42px;
-            height: 42px;
+            width: 43px;
+            height: 43px;
+
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.12);
+
+            background:
+                rgba(255, 255, 255, 0.12);
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             font-size: 21px;
         }
 
         .logo-text strong {
             display: block;
-            font-size: 15px;
+
+            font-size: 14px;
             font-weight: 800;
+
+            color: white;
         }
 
         .logo-text span {
             display: block;
+
+            margin-top: 4px;
+
             color: var(--sidebar-muted);
+
             font-size: 11px;
-            margin-top: 3px;
         }
 
         .sidebar-title {
+            padding:
+                27px 12px 10px;
+
             color: #83aaa1;
+
             font-size: 10px;
             font-weight: 700;
-            text-transform: uppercase;
+
             letter-spacing: 1px;
-            padding: 28px 12px 10px;
+            text-transform: uppercase;
         }
 
         .sidebar-nav {
@@ -113,16 +149,24 @@
         }
 
         .sidebar-nav a {
-            text-decoration: none;
-            color: var(--sidebar-text);
-            padding: 12px 13px;
-            border-radius: 10px;
             display: flex;
             align-items: center;
             gap: 11px;
+
+            padding: 12px 13px;
+
+            border-radius: 10px;
+
+            color: var(--sidebar-text);
+
+            text-decoration: none;
+
             font-size: 13px;
             font-weight: 600;
-            transition: 0.2s ease;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease;
         }
 
         .sidebar-nav a:hover,
@@ -132,136 +176,207 @@
         }
 
         .nav-icon {
-            width: 25px;
+            width: 24px;
+
             text-align: center;
+
             font-size: 16px;
         }
 
         .sidebar-bottom {
             margin-top: auto;
-            border-top: 1px solid rgba(255, 255, 255, 0.10);
-            padding-top: 16px;
+
+            padding-top: 15px;
+
+            border-top:
+                1px solid rgba(255, 255, 255, 0.10);
+
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
         }
 
         .sidebar-bottom a {
-            text-decoration: none;
-            color: var(--sidebar-text);
             display: flex;
             align-items: center;
             gap: 10px;
+
             padding: 11px 12px;
+
             border-radius: 10px;
+
+            color: var(--sidebar-text);
+
+            text-decoration: none;
+
             font-size: 13px;
             font-weight: 600;
+
+            transition:
+                background 0.2s ease;
         }
 
         .sidebar-bottom a:hover {
             background: var(--sidebar-hover);
         }
 
-        /* =========================
-           MAIN
-        ========================= */
+        /* =========================================
+           ANA ALAN
+        ========================================= */
 
         .main-content {
-            margin-left: 250px;
             width: calc(100% - 250px);
+
+            margin-left: 250px;
+
             min-height: 100vh;
         }
 
+        /* =========================================
+           ÜST BAR
+        ========================================= */
+
         .topbar {
             height: 76px;
-            background: white;
-            border-bottom: 1px solid var(--border);
+
+            background: var(--white);
+
+            border-bottom:
+                1px solid var(--border);
+
+            padding:
+                0 38px;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 38px;
         }
 
         .topbar-left h1 {
             font-size: 21px;
             font-weight: 800;
+
             color: var(--text);
         }
 
         .topbar-left p {
             margin-top: 4px;
-            font-size: 12px;
+
             color: var(--muted);
+
+            font-size: 12px;
         }
 
         .admin-user {
             display: flex;
             align-items: center;
+
             gap: 10px;
         }
 
         .admin-avatar {
-            width: 38px;
-            height: 38px;
+            width: 39px;
+            height: 39px;
+
             border-radius: 50%;
+
             background: var(--primary-light);
+
             color: var(--primary);
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
+
             font-size: 14px;
+            font-weight: 800;
         }
 
         .admin-user-text strong {
             display: block;
+
             font-size: 13px;
         }
 
         .admin-user-text span {
             display: block;
-            color: var(--muted);
-            font-size: 11px;
+
             margin-top: 2px;
+
+            color: var(--muted);
+
+            font-size: 11px;
         }
 
-        /* =========================
-           CONTENT
-        ========================= */
+        /* =========================================
+           İÇERİK
+        ========================================= */
 
         .content {
-            padding: 34px 38px 50px;
+            width: 100%;
+
             max-width: 1500px;
+
+            padding:
+                34px 38px 55px;
         }
 
         .welcome {
-            margin-bottom: 26px;
+            margin-bottom: 27px;
         }
 
         .welcome h2 {
             font-size: 25px;
             font-weight: 800;
+
+            color: var(--text);
         }
 
         .welcome p {
-            color: var(--muted);
-            font-size: 13px;
             margin-top: 7px;
+
+            color: var(--muted);
+
+            font-size: 13px;
         }
 
-        /* =========================
-           STAT CARDS
-        ========================= */
+        /* =========================================
+           ÖZET
+        ========================================= */
+
+        .summary-box {
+            margin-bottom: 20px;
+
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        /* =========================================
+           İSTATİSTİKLER
+        ========================================= */
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
             gap: 18px;
+
             margin-bottom: 34px;
         }
 
         .stat-card {
             background: var(--white);
-            border: 1px solid var(--border);
+
+            border:
+                1px solid var(--border);
+
             border-radius: 16px;
+
             padding: 21px;
+
             box-shadow: var(--shadow);
         }
 
@@ -269,44 +384,54 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 18px;
+
+            margin-bottom: 17px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+
+            font-size: 12px;
+            font-weight: 600;
         }
 
         .stat-icon {
             width: 40px;
             height: 40px;
+
             border-radius: 11px;
+
             background: var(--primary-light);
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             font-size: 18px;
         }
 
-        .stat-label {
-            color: var(--muted);
-            font-size: 12px;
-            font-weight: 600;
-        }
-
         .stat-value {
-            font-size: 27px;
+            font-size: 28px;
             font-weight: 800;
+
             color: var(--text);
         }
 
-        /* =========================
-           SECTION
-        ========================= */
+        /* =========================================
+           BÖLÜMLER
+        ========================================= */
 
         .section {
-            margin-top: 30px;
+            margin-top: 32px;
+
+            scroll-margin-top: 25px;
         }
 
         .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             margin-bottom: 16px;
         }
 
@@ -317,105 +442,209 @@
 
         .section-header span {
             color: var(--muted);
+
             font-size: 12px;
         }
 
-        /* =========================
-           EXISTING JS CARDS
-        ========================= */
+        /* =========================================
+           KULLANICI / KİTAP KARTLARI
+        ========================================= */
 
-        .book-grid {
+        #users,
+        #books {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+            grid-template-columns:
+                repeat(auto-fill, minmax(250px, 1fr));
+
             gap: 18px;
         }
 
-        .book-card {
-            background: white;
-            border: 1px solid var(--border);
+        /* JS tarafından oluşturulan article */
+        #users article,
+        #books article {
+            background: var(--white);
+
+            border:
+                1px solid var(--border);
+
             border-radius: 16px;
+
             padding: 20px;
+
             box-shadow: var(--shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
         }
 
-        .book-card:hover {
+        #users article:hover,
+        #books article:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(20, 55, 47, 0.10);
+
+            box-shadow:
+                0 12px 35px
+                rgba(20, 55, 47, 0.10);
         }
 
-        .book-title {
+        /* =========================================
+           KART İÇERİĞİ
+        ========================================= */
+
+        #users h3,
+        #books h3 {
             font-size: 16px;
+
             font-weight: 800;
+
+            color: var(--text);
+
             margin-bottom: 7px;
         }
 
-        .book-author {
+        #users p,
+        #books p {
             color: var(--muted);
+
             font-size: 12px;
-            margin-bottom: 17px;
+
+            margin-bottom: 14px;
+
             word-break: break-word;
         }
 
-        .book-card input {
+        /* =========================================
+           INPUTLAR
+        ========================================= */
+
+        #books input {
             width: 100%;
+
             height: 42px;
-            border: 1px solid #d8e1de;
-            border-radius: 9px;
-            padding: 0 12px;
-            font-family: inherit;
-            font-size: 13px;
-            color: var(--text);
-            outline: none;
+
+            padding:
+                0 12px;
+
             margin-bottom: 9px;
-        }
 
-        .book-card input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(31, 90, 78, 0.10);
-        }
+            border:
+                1px solid #d8e1de;
 
-        .add-book-button {
-            width: 100%;
-            min-height: 41px;
-            border: none;
             border-radius: 9px;
-            background: var(--primary);
-            color: white;
+
+            background: white;
+
+            color: var(--text);
+
             font-family: inherit;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s ease;
+
+            font-size: 13px;
+
+            outline: none;
+
+            transition:
+                border 0.2s ease,
+                box-shadow 0.2s ease;
         }
 
-        .add-book-button:hover {
-            background: #17483e;
+        #books input:focus {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(31, 90, 78, 0.10);
+        }
+
+        /* =========================================
+           BUTONLAR
+        ========================================= */
+
+        button,
+        .button {
+            width: 100%;
+
+            min-height: 41px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: var(--primary);
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        button:hover,
+        .button:hover {
+            background: var(--primary-hover);
+
             transform: translateY(-1px);
         }
 
-        /* =========================
-           MOBILE
-        ========================= */
+        #users button,
+        #books button {
+            margin-top: 7px;
+        }
+
+        /* =========================================
+           BOŞ DURUM
+        ========================================= */
+
+        .empty-state {
+            background: white;
+
+            border:
+                1px dashed var(--border);
+
+            border-radius: 16px;
+
+            padding: 35px;
+
+            color: var(--muted);
+
+            text-align: center;
+
+            font-size: 13px;
+        }
+
+        /* =========================================
+           MOBİL
+        ========================================= */
 
         @media (max-width: 850px) {
-
-            .sidebar {
-                width: 100%;
-                min-width: 0;
-                height: auto;
-                bottom: auto;
-                position: relative;
-                padding: 15px;
-            }
 
             .admin-layout {
                 display: block;
             }
 
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+                min-width: 0;
+
+                height: auto;
+
+                padding: 15px;
+            }
+
             .sidebar-logo {
                 border-bottom: none;
-                padding-bottom: 12px;
+
+                padding-bottom: 13px;
             }
 
             .sidebar-title {
@@ -424,7 +653,10 @@
 
             .sidebar-nav {
                 flex-direction: row;
+
                 overflow-x: auto;
+
+                padding-bottom: 3px;
             }
 
             .sidebar-nav a {
@@ -436,16 +668,19 @@
             }
 
             .main-content {
-                margin-left: 0;
                 width: 100%;
+
+                margin-left: 0;
             }
 
             .topbar {
-                padding: 0 20px;
+                padding:
+                    0 20px;
             }
 
             .content {
-                padding: 25px 20px 40px;
+                padding:
+                    26px 20px 45px;
             }
 
             .stats {
@@ -457,11 +692,17 @@
 
             .topbar {
                 height: auto;
-                padding: 17px 20px;
+
+                padding:
+                    17px 20px;
             }
 
             .topbar-left h1 {
                 font-size: 17px;
+            }
+
+            .topbar-left p {
+                display: none;
             }
 
             .admin-user-text {
@@ -472,8 +713,17 @@
                 font-size: 22px;
             }
 
-            .book-grid {
+            #users,
+            #books {
                 grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                align-items: flex-start;
+
+                gap: 10px;
+
+                flex-direction: column;
             }
         }
     </style>
@@ -483,51 +733,92 @@
 
     <div class="admin-layout">
 
-        <!-- SIDEBAR -->
+        <!-- =====================================
+             SOL SIDEBAR
+        ====================================== -->
+
         <aside class="sidebar">
 
             <div class="sidebar-logo">
-                <div class="logo-icon">📚</div>
+
+                <div class="logo-icon">
+                    📚
+                </div>
 
                 <div class="logo-text">
+
                     <strong>Dijital Kütüphanem</strong>
+
                     <span>Yönetim Paneli</span>
+
                 </div>
+
             </div>
+
 
             <div class="sidebar-title">
                 Yönetim
             </div>
 
+
             <nav class="sidebar-nav">
 
                 <a href="#dashboard" class="active">
-                    <span class="nav-icon">⌂</span>
+
+                    <span class="nav-icon">
+                        ⌂
+                    </span>
+
                     Dashboard
+
                 </a>
 
-                <a href="#users">
-                    <span class="nav-icon">👥</span>
+
+                <a href="#users-section">
+
+                    <span class="nav-icon">
+                        👥
+                    </span>
+
                     Kullanıcılar
+
                 </a>
 
-                <a href="#books">
-                    <span class="nav-icon">📚</span>
+
+                <a href="#books-section">
+
+                    <span class="nav-icon">
+                        📚
+                    </span>
+
                     Kitaplar
+
                 </a>
 
             </nav>
 
+
             <div class="sidebar-bottom">
 
                 <a href="../library.html">
-                    <span>↩</span>
+
+                    <span>
+                        ↩
+                    </span>
+
                     Siteye dön
+
                 </a>
 
+
                 <a href="#" id="logoutButton">
-                    <span>↪</span>
+
+                    <span>
+                        ↪
+                    </span>
+
                     Çıkış yap
+
                 </a>
 
             </div>
@@ -535,16 +826,29 @@
         </aside>
 
 
-        <!-- MAIN -->
+        <!-- =====================================
+             ANA ALAN
+        ====================================== -->
+
         <div class="main-content">
 
-            <!-- TOPBAR -->
+
+            <!-- ÜST BAR -->
+
             <header class="topbar">
 
                 <div class="topbar-left">
-                    <h1>Yönetim Paneli</h1>
-                    <p>Dijital Kütüphanem sistem yönetimi</p>
+
+                    <h1>
+                        Yönetim Paneli
+                    </h1>
+
+                    <p>
+                        Dijital Kütüphanem sistem yönetimi
+                    </p>
+
                 </div>
+
 
                 <div class="admin-user">
 
@@ -553,8 +857,15 @@
                     </div>
 
                     <div class="admin-user-text">
-                        <strong>Yönetici</strong>
-                        <span>Administrator</span>
+
+                        <strong>
+                            Yönetici
+                        </strong>
+
+                        <span>
+                            Administrator
+                        </span>
+
                     </div>
 
                 </div>
@@ -562,12 +873,21 @@
             </header>
 
 
-            <!-- CONTENT -->
+            <!-- İÇERİK -->
+
             <main class="content">
 
-                <section id="dashboard" class="welcome">
 
-                    <h2>Hoş geldin, Admin 👋</h2>
+                <!-- DASHBOARD -->
+
+                <section
+                    id="dashboard"
+                    class="welcome"
+                >
+
+                    <h2>
+                        Hoş geldin, Admin 👋
+                    </h2>
 
                     <p>
                         Kütüphanedeki kullanıcıları ve kitap kayıtlarını buradan yönetebilirsin.
@@ -576,18 +896,42 @@
                 </section>
 
 
-                <!-- STATS -->
+                <!--
+                    admin.js mevcut kodunda summary kullanıyorsa
+                    bozulmaması için burada tutuluyor.
+                -->
+
+                <div
+                    id="summary"
+                    class="summary-box"
+                >
+                    Yükleniyor...
+                </div>
+
+
+                <!-- İSTATİSTİK KARTLARI -->
 
                 <section class="stats">
 
+
                     <div class="stat-card">
 
                         <div class="stat-top">
-                            <span class="stat-label">Toplam Kullanıcı</span>
-                            <div class="stat-icon">👥</div>
+
+                            <span class="stat-label">
+                                Toplam Kullanıcı
+                            </span>
+
+                            <div class="stat-icon">
+                                👥
+                            </div>
+
                         </div>
 
-                        <div class="stat-value" id="userCount">
+                        <div
+                            class="stat-value"
+                            id="userCount"
+                        >
                             —
                         </div>
 
@@ -597,11 +941,21 @@
                     <div class="stat-card">
 
                         <div class="stat-top">
-                            <span class="stat-label">Toplam Kitap</span>
-                            <div class="stat-icon">📚</div>
+
+                            <span class="stat-label">
+                                Toplam Kitap
+                            </span>
+
+                            <div class="stat-icon">
+                                📚
+                            </div>
+
                         </div>
 
-                        <div class="stat-value" id="bookCount">
+                        <div
+                            class="stat-value"
+                            id="bookCount"
+                        >
                             —
                         </div>
 
@@ -611,11 +965,21 @@
                     <div class="stat-card">
 
                         <div class="stat-top">
-                            <span class="stat-label">Sistem Durumu</span>
-                            <div class="stat-icon">✓</div>
+
+                            <span class="stat-label">
+                                Sistem Durumu
+                            </span>
+
+                            <div class="stat-icon">
+                                ✓
+                            </div>
+
                         </div>
 
-                        <div class="stat-value" style="font-size:20px;">
+                        <div
+                            class="stat-value"
+                            style="font-size: 20px;"
+                        >
                             Aktif
                         </div>
 
@@ -624,40 +988,73 @@
                 </section>
 
 
-                <!-- USERS -->
+                <!-- =================================
+                     KULLANICILAR
+                ================================== -->
 
-                <section id="users" class="section">
+                <section
+                    id="users-section"
+                    class="section"
+                >
 
                     <div class="section-header">
 
-                        <h2>👥 Kullanıcılar</h2>
+                        <h2>
+                            👥 Kullanıcılar
+                        </h2>
 
-                        <span>Kullanıcı yönetimi</span>
+                        <span>
+                            Kullanıcı yönetimi
+                        </span>
 
                     </div>
 
-                    <div id="users" class="book-grid">
+
+                    <!--
+                        BU ID'YE DOKUNMA.
+                        admin.js bunu kullanıyor.
+                    -->
+
+                    <div id="users">
+
                     </div>
 
                 </section>
 
 
-                <!-- BOOKS -->
+                <!-- =================================
+                     KİTAPLAR
+                ================================== -->
 
-                <section id="books" class="section">
+                <section
+                    id="books-section"
+                    class="section"
+                >
 
                     <div class="section-header">
 
-                        <h2>📚 Kitap Kayıtları</h2>
+                        <h2>
+                            📚 Kitap Kayıtları
+                        </h2>
 
-                        <span>Kitap yönetimi</span>
+                        <span>
+                            Kitap yönetimi
+                        </span>
 
                     </div>
 
-                    <div id="books" class="book-grid">
+
+                    <!--
+                        BU ID'YE DOKUNMA.
+                        admin.js bunu kullanıyor.
+                    -->
+
+                    <div id="books">
+
                     </div>
 
                 </section>
+
 
             </main>
 
@@ -666,6 +1063,8 @@
     </div>
 
 
+    <!-- SUPABASE -->
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="../js/supabase-client.js"></script>
@@ -673,31 +1072,72 @@
     <script src="admin.js"></script>
 
 
-    <!-- DASHBOARD SAYILARINI GÜNCELLE -->
+    <!--
+        İSTATİSTİK SAYILARINI ÖZETTEN ALIR.
+        Mevcut admin.js'yi bozmadan çalışır.
+    -->
+
     <script>
 
-        const originalText = document.getElementById("summary");
+        document.addEventListener("DOMContentLoaded", () => {
 
-        const observer = new MutationObserver(() => {
+            const summary =
+                document.getElementById("summary");
 
-            const text = originalText.textContent;
+            if (!summary) return;
 
-            const match = text.match(/(\d+)\s*kullanıcı\s*·\s*(\d+)\s*kitap/);
 
-            if (match) {
+            const observer =
+                new MutationObserver(() => {
 
-                document.getElementById("userCount").textContent = match[1];
+                    const text =
+                        summary.textContent || "";
 
-                document.getElementById("bookCount").textContent = match[2];
 
-            }
+                    const match =
+                        text.match(
+                            /(\d+)\s*kullanıcı\s*·\s*(\d+)\s*kitap/i
+                        );
 
-        });
 
-        observer.observe(originalText, {
-            childList: true,
-            characterData: true,
-            subtree: true
+                    if (!match) return;
+
+
+                    const userCount =
+                        document.getElementById("userCount");
+
+                    const bookCount =
+                        document.getElementById("bookCount");
+
+
+                    if (userCount) {
+
+                        userCount.textContent =
+                            match[1];
+
+                    }
+
+
+                    if (bookCount) {
+
+                        bookCount.textContent =
+                            match[2];
+
+                    }
+
+                });
+
+
+            observer.observe(summary, {
+
+                childList: true,
+
+                characterData: true,
+
+                subtree: true
+
+            });
+
         });
 
     </script>
