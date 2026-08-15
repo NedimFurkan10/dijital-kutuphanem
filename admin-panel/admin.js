@@ -1,37 +1,76 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
+    // =====================================================
+    // KULLANICI KONTROLÜ
+    // =====================================================
+
     const user = await requireUser();
 
-    if (!user) return;
+    if (!user) {
+        return;
+    }
 
 
-    document.getElementById("logoutButton").onclick = async (e) => {
+    // =====================================================
+    // ÇIKIŞ
+    // =====================================================
 
-        e.preventDefault();
+    const logoutButton = document.getElementById("logoutButton");
 
-        await logout();
+    if (logoutButton) {
+        logoutButton.addEventListener("click", async (event) => {
 
-    };
+            event.preventDefault();
+
+            await logout();
+
+        });
+    }
 
 
+    // =====================================================
     // ADMIN KONTROLÜ
-    const { data: me } = await db
+    // =====================================================
+
+    const {
+        data: me,
+        error: profileError
+    } = await db
         .from("profiles")
-        .select("is_admin")
+        .select("username, is_admin, is_active")
         .eq("id", user.id)
         .single();
 
 
-    if (!me?.is_admin) {
+    if (profileError || !me?.is_admin || !me?.is_active) {
 
         window.location.replace("../library.html");
 
         return;
-
     }
 
 
-    // KULLANICILAR
+    // =====================================================
+    // ADMIN BİLGİSİ
+    // =====================================================
+
+    const adminName = document.querySelector(".admin-user-text strong");
+    const adminAvatar = document.querySelector(".admin-avatar");
+
+    if (adminName) {
+        adminName.textContent = me.username || "Yönetici";
+    }
+
+    if (adminAvatar) {
+        adminAvatar.textContent =
+            (me.username || "A").charAt(0).toUpperCase();
+    }
+
+
+    // =====================================================
+    // KULLANICILARI GETİR
+    // =====================================================
+
     const {
         data: users,
         error: usersError
@@ -40,17 +79,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (usersError) {
 
-        console.error("admin_users hatası:", usersError);
+        console.error("ADMIN USERS ERROR:", usersError);
 
-        document.getElementById("summary").textContent =
-            "Kullanıcılar yüklenemedi.";
+        const summary =
+            document.getElementById("summary");
+
+        if (summary) {
+            summary.textContent =
+                "Kullanıcılar yüklenirken hata oluştu.";
+        }
 
         return;
-
     }
 
 
-    // KİTAPLAR
+    // =====================================================
+    // KİTAPLARI GETİR
+    // =====================================================
+
     const {
         data: books,
         error: booksError
@@ -64,277 +110,498 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (booksError) {
 
-        console.error("books hatası:", booksError);
+        console.error("BOOKS ERROR:", booksError);
 
     }
 
 
+    const userList = users || [];
+    const bookList = books || [];
+
+
+    // =====================================================
     // ÖZET
-    document.getElementById("summary").textContent =
-        `${users.length} kullanıcı · ${books?.length || 0} kitap`;
+    // =====================================================
+
+    const summary =
+        document.getElementById("summary");
+
+    if (summary) {
+
+        summary.textContent =
+            `${userList.length} kullanıcı · ${bookList.length} kitap`;
+
+    }
 
 
-    // =========================
-    // KULLANICI SAYISI
-    // =========================
+    // =====================================================
+    // ÜSTTEKİ İSTATİSTİKLER
+    // =====================================================
 
-    const userCount = document.getElementById("userCount");
+    const userCount =
+        document.getElementById("userCount");
+
+    const bookCount =
+        document.getElementById("bookCount");
+
 
     if (userCount) {
-
-        userCount.textContent = users.length;
-
+        userCount.textContent =
+            userList.length;
     }
 
-
-    // =========================
-    // KİTAP SAYISI
-    // =========================
-
-    const bookCount = document.getElementById("bookCount");
 
     if (bookCount) {
+        bookCount.textContent =
+            bookList.length;
+    }
 
-        bookCount.textContent = books?.length || 0;
+
+    // =====================================================
+    // KULLANICILAR
+    // =====================================================
+
+    const target =
+        document.getElementById("users");
+
+
+    if (target) {
+
+        target.innerHTML = "";
+
+
+        if (userList.length === 0) {
+
+            target.innerHTML = `
+                <div class="empty-state">
+                    Henüz kayıtlı kullanıcı bulunmuyor.
+                </div>
+            `;
+
+        }
+
+
+        userList.forEach(item => {
+
+            const card =
+                document.createElement("article");
+
+
+            // ---------------------------------------------
+            // KULLANICI ADI
+            // ---------------------------------------------
+
+            const title =
+                document.createElement("h3");
+
+            title.textContent =
+                item.username || "Kullanıcı";
+
+
+            // ---------------------------------------------
+            // E-POSTA
+            // ---------------------------------------------
+
+            const email =
+                document.createElement("p");
+
+            email.textContent =
+                item.email || "E-posta bulunamadı";
+
+
+            // ---------------------------------------------
+            // DURUM BİLGİSİ
+            // ---------------------------------------------
+
+            const status =
+                document.createElement("p");
+
+            status.style.marginTop = "4px";
+
+            status.textContent =
+                item.is_active
+                    ? "● Aktif kullanıcı"
+                    : "● Pasif kullanıcı";
+
+
+            status.style.color =
+                item.is_active
+                    ? "#1f5a4e"
+                    : "#b94b4b";
+
+
+            // ---------------------------------------------
+            // ADMIN BUTONU
+            // ---------------------------------------------
+
+            const admin =
+                document.createElement("button");
+
+
+            admin.textContent =
+                item.is_admin
+                    ? "Adminliği kaldır"
+                    : "Admin yap";
+
+
+            admin.onclick = async () => {
+
+                admin.disabled = true;
+
+                const {
+                    error
+                } = await db
+                    .from("profiles")
+                    .update({
+                        is_admin: !item.is_admin
+                    })
+                    .eq("id", item.id);
+
+
+                if (error) {
+
+                    console.error(
+                        "ADMIN UPDATE ERROR:",
+                        error
+                    );
+
+                    alert(
+                        "Admin yetkisi değiştirilirken hata oluştu."
+                    );
+
+                    admin.disabled = false;
+
+                    return;
+                }
+
+
+                location.reload();
+
+            };
+
+
+            // ---------------------------------------------
+            // AKTİF / PASİF BUTONU
+            // ---------------------------------------------
+
+            const active =
+                document.createElement("button");
+
+
+            active.style.marginTop =
+                "8px";
+
+
+            active.textContent =
+                item.is_active
+                    ? "Pasife al"
+                    : "Aktifleştir";
+
+
+            active.onclick = async () => {
+
+                active.disabled = true;
+
+
+                const {
+                    error
+                } = await db
+                    .from("profiles")
+                    .update({
+                        is_active: !item.is_active
+                    })
+                    .eq("id", item.id);
+
+
+                if (error) {
+
+                    console.error(
+                        "ACTIVE UPDATE ERROR:",
+                        error
+                    );
+
+                    alert(
+                        "Kullanıcı durumu değiştirilirken hata oluştu."
+                    );
+
+                    active.disabled = false;
+
+                    return;
+                }
+
+
+                location.reload();
+
+            };
+
+
+            // ---------------------------------------------
+            // KART
+            // ---------------------------------------------
+
+            card.append(
+                title,
+                email,
+                status,
+                admin,
+                active
+            );
+
+
+            target.append(card);
+
+        });
 
     }
 
 
-    // =========================
-    // KULLANICILAR
-    // =========================
-
-    const target = document.getElementById("users");
-
-    target.innerHTML = "";
-
-
-    users.forEach(item => {
-
-        const card = document.createElement("article");
-
-        card.className = "book-card";
-
-
-        const title = document.createElement("h3");
-
-        title.className = "book-title";
-
-        title.textContent = item.username;
-
-
-        const email = document.createElement("p");
-
-        email.className = "book-author";
-
-        email.textContent = item.email;
-
-
-        const admin = document.createElement("button");
-
-        admin.className = "add-book-button";
-
-        admin.textContent =
-            item.is_admin
-                ? "Adminliği kaldır"
-                : "Admin yap";
-
-
-        admin.onclick = async () => {
-
-            const { error } = await db
-                .from("profiles")
-                .update({
-                    is_admin: !item.is_admin
-                })
-                .eq("id", item.id);
-
-
-            if (error) {
-
-                alert("İşlem başarısız.");
-
-                console.error(error);
-
-                return;
-
-            }
-
-
-            location.reload();
-
-        };
-
-
-        const active = document.createElement("button");
-
-        active.className = "add-book-button";
-
-        active.style.marginTop = "8px";
-
-        active.textContent =
-            item.is_active
-                ? "Pasife al"
-                : "Aktifleştir";
-
-
-        active.onclick = async () => {
-
-            const { error } = await db
-                .from("profiles")
-                .update({
-                    is_active: !item.is_active
-                })
-                .eq("id", item.id);
-
-
-            if (error) {
-
-                alert("İşlem başarısız.");
-
-                console.error(error);
-
-                return;
-
-            }
-
-
-            location.reload();
-
-        };
-
-
-        card.append(
-            title,
-            email,
-            admin,
-            active
-        );
-
-
-        target.appendChild(card);
-
-    });
-
-
-    // =========================
+    // =====================================================
     // KİTAPLAR
-    // =========================
+    // =====================================================
 
-    const bookTarget = document.getElementById("books");
-
-    bookTarget.innerHTML = "";
-
-
-    (books || []).forEach(book => {
-
-        const card = document.createElement("article");
-
-        card.className = "book-card";
+    const bookTarget =
+        document.getElementById("books");
 
 
-        const title = document.createElement("input");
+    if (bookTarget) {
 
-        title.value = book.title;
-
-        title.placeholder = "Kitap adı";
+        bookTarget.innerHTML = "";
 
 
-        const pages = document.createElement("input");
+        if (bookList.length === 0) {
 
-        pages.type = "number";
+            bookTarget.innerHTML = `
+                <div class="empty-state">
+                    Henüz kayıtlı kitap bulunmuyor.
+                </div>
+            `;
 
-        pages.min = "1";
-
-        pages.value = book.page_count;
-
-        pages.placeholder = "Sayfa sayısı";
-
-
-        const save = document.createElement("button");
-
-        save.className = "add-book-button";
-
-        save.textContent = "Kaydet";
+        }
 
 
-        save.onclick = async () => {
+        bookList.forEach(book => {
 
-            const { error } = await db
-                .from("books")
-                .update({
-                    title: title.value,
-                    page_count: Number(pages.value)
-                })
-                .eq("id", book.id);
+            const card =
+                document.createElement("article");
 
 
-            if (error) {
+            // ---------------------------------------------
+            // KİTAP ADI
+            // ---------------------------------------------
 
-                alert("Kitap güncellenemedi.");
-
-                console.error(error);
-
-                return;
-
-            }
+            const title =
+                document.createElement("input");
 
 
-            alert("Kitap güncellendi.");
+            title.type = "text";
 
-        };
-
-
-        const remove = document.createElement("button");
-
-        remove.className = "add-book-button";
-
-        remove.style.marginTop = "8px";
-
-        remove.textContent = "Sil";
+            title.value =
+                book.title || "";
 
 
-        remove.onclick = async () => {
-
-            if (!confirm("Bu kitap silinsin mi?")) {
-
-                return;
-
-            }
+            title.placeholder =
+                "Kitap adı";
 
 
-            const { error } = await db
-                .from("books")
-                .delete()
-                .eq("id", book.id);
+            // ---------------------------------------------
+            // SAYFA SAYISI
+            // ---------------------------------------------
+
+            const pages =
+                document.createElement("input");
 
 
-            if (error) {
+            pages.type = "number";
 
-                alert("Kitap silinemedi.");
+            pages.min = "1";
 
-                console.error(error);
-
-                return;
-
-            }
+            pages.value =
+                book.page_count || "";
 
 
-            location.reload();
-
-        };
-
-
-        card.append(
-            title,
-            pages,
-            save,
-            remove
-        );
+            pages.placeholder =
+                "Sayfa sayısı";
 
 
-        bookTarget.appendChild(card);
+            // ---------------------------------------------
+            // KAYDET
+            // ---------------------------------------------
 
-    });
+            const save =
+                document.createElement("button");
+
+
+            save.textContent =
+                "Kaydet";
+
+
+            save.onclick = async () => {
+
+                const newTitle =
+                    title.value.trim();
+
+
+                const newPages =
+                    Number(pages.value);
+
+
+                if (!newTitle) {
+
+                    alert(
+                        "Kitap adı boş bırakılamaz."
+                    );
+
+                    return;
+                }
+
+
+                if (!newPages || newPages < 1) {
+
+                    alert(
+                        "Geçerli bir sayfa sayısı gir."
+                    );
+
+                    return;
+                }
+
+
+                save.disabled = true;
+
+                save.textContent =
+                    "Kaydediliyor...";
+
+
+                const {
+                    error
+                } = await db
+                    .from("books")
+                    .update({
+                        title: newTitle,
+                        page_count: newPages
+                    })
+                    .eq("id", book.id);
+
+
+                if (error) {
+
+                    console.error(
+                        "BOOK UPDATE ERROR:",
+                        error
+                    );
+
+                    alert(
+                        "Kitap güncellenirken hata oluştu."
+                    );
+
+                    save.disabled = false;
+
+                    save.textContent =
+                        "Kaydet";
+
+                    return;
+                }
+
+
+                save.textContent =
+                    "Kaydedildi ✓";
+
+
+                setTimeout(() => {
+
+                    save.textContent =
+                        "Kaydet";
+
+                    save.disabled = false;
+
+                }, 1200);
+
+            };
+
+
+            // ---------------------------------------------
+            // SİL
+            // ---------------------------------------------
+
+            const remove =
+                document.createElement("button");
+
+
+            remove.style.marginTop =
+                "8px";
+
+
+            remove.textContent =
+                "Sil";
+
+
+            remove.onclick = async () => {
+
+                const confirmed =
+                    confirm(
+                        `"${book.title}" kitabı silinsin mi?`
+                    );
+
+
+                if (!confirmed) {
+                    return;
+                }
+
+
+                remove.disabled = true;
+
+                remove.textContent =
+                    "Siliniyor...";
+
+
+                const {
+                    error
+                } = await db
+                    .from("books")
+                    .delete()
+                    .eq("id", book.id);
+
+
+                if (error) {
+
+                    console.error(
+                        "BOOK DELETE ERROR:",
+                        error
+                    );
+
+                    alert(
+                        "Kitap silinirken hata oluştu."
+                    );
+
+                    remove.disabled = false;
+
+                    remove.textContent =
+                        "Sil";
+
+                    return;
+                }
+
+
+                location.reload();
+
+            };
+
+
+            // ---------------------------------------------
+            // KART
+            // ---------------------------------------------
+
+            card.append(
+                title,
+                pages,
+                save,
+                remove
+            );
+
+
+            bookTarget.append(card);
+
+        });
+
+    }
 
 });
